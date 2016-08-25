@@ -223,7 +223,8 @@ llab.processLinks = function(data, status, jqXHR) {
     llab.indicateProgress(llab.url_list.length, llab.thisPageNum() + 1);
 
     // FIXME -- not sure this really belongs here as well.
-    llab.addFeedback(document.title, llab.file, course);
+    // NATE TODO move to config
+    // llab.addFeedback(document.title, llab.file, course);
 }; // end processLinks()
 
 

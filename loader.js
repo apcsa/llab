@@ -218,7 +218,7 @@ llab.initialSetup = function() {
         }
     }
 
-    // TODO use promises; they work in basically all browsers now
+    // TODO promises
     function proceedWhenComplete(stage_num) {
         if (llab.paths.stage_complete_functions[stage_num]()) {
             if ((stage_num + 1) < llab.paths.scripts.length) {

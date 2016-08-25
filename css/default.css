@@ -96,7 +96,7 @@ above rules override these without it.
 .llab-full ul  ol, .llab-full ol  ul {
   border: none;
   display: block;
-  margin: none;
+  margin: 0;
   border-radius: 0;
 }
 
@@ -165,7 +165,7 @@ code { /* Override bootstrap. */
 /* First line is stupid bootstrap stuff....*/
 .navbar-default .navbar-title:hover, .navbar-default .navbar-title:focus,
 .navbar-default .navbar-title,
-.navbar-title, a..navbar-title {
+.navbar-title, a.navbar-title {
   vertical-align: middle;
   max-width: 80%;
   min-width: 50%;
@@ -178,7 +178,7 @@ code { /* Override bootstrap. */
   background: #003A70;
   opacity: 0.85;
   filter: alpha(opacity=85); /* For IE8 and earlier */
-  background-image: url(../img/progress.gif);
+  background-image: url(../img/robotcartoon28.png);
   background-repeat: no-repeat;
   background-size: 26px;
   height: 32px;
@@ -482,15 +482,15 @@ img.indent, div.indent {
 /** ICON CLASSES **/
 /*  These are resource icons for each item. 
     Really, these should all apply on when contained in .topics...*/
-.topic .group, .topic .reading, .extresource, .topic .video, .topic .forum,
-.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit, 
-.simulation, .topic .matchsequence, .fillblank, .topic .summary,
-.topic .brainstorm, .display {
+.topic .group, .topic .reading, .topic .extresource, .topic .video, .topic .forum,
+.topic .resource, .topic .assignment, .topic .homework, .topic .quiz, .topic .codeit,
+.topic .simulation, .topic .matchsequence, .topic .fillblank, .topic .summary,
+.topic .brainstorm, .topic .display {
   background-repeat: no-repeat;
   background-position: left;
   background-size: 1em;
   padding-left: 35px;
-  margin: 5px 0;
+  margin-top: 5px;
 }
 
 .topic .quiz {
@@ -562,7 +562,6 @@ img.indent, div.indent {
   margin-top: 20px;
   margin-bottom: 12px;
   padding-left: 0;
-  padding-left: 0;
 }
 
 /* List-related items
@@ -578,13 +577,13 @@ img.indent, div.indent {
   margin-left: 0
 }
 .indent1 {
-  margin-left: 20px
+  margin-left: 20px;
 }
 .indent2 {
-  margin-left: 40px
+  margin-left: 40px;
 }
 .indent3 {
-  margin-left: 60px
+  margin-left: 60px;
 }
 
 
