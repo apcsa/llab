@@ -81,7 +81,7 @@ llab.highlightSyntax = function() {
 /**
  *  Processes just the hyperlinked elements in the topic file,
  *  and creates navigation buttons.
- *  FIXME: This should share code with llab.topic!
+ *  FIXME: This should share code with llab.topic!  ya think?
  */
 llab.processLinks = function(data, status, jqXHR) {
     /* NOTE: DO NOT REMOVE THIS CONDITIONAL WITHOUT SERIOUS TESTING
@@ -116,7 +116,7 @@ llab.processLinks = function(data, status, jqXHR) {
         len = topicArray.length,
         isExternal,
         pageCount = -1,
-        sep, urlOpen, urlClose;
+        sep, urlOpen, urlClose, isCurrentPage, sepIndex, hasLink;
 
     // Prevent src, title from being added to other URLS.
     delete params.src;

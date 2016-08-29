@@ -78,7 +78,8 @@ llab.renderFull = function(data, ignored1, ignored2) {
     var text;
     var isHidden;
     var num = 0;
-    var indent = "";
+    var numspan;
+    var numobj = {n: [-1], indent: ""};    //n is array of ints, current numbering at each level
     var url = document.URL;
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
@@ -93,7 +94,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 $('.title-small-screen').html(titleHTML);
                 var titleText = $('.navbar-title').text();
                 // SPECIAL-CASE for 'Snap' in titles.
-                titleText = titleText.replace('snap', 'Snap!');
+                //titleText = titleText.replace('snap', 'Snap!');
                 document.title = titleText;
                 learningGoal = false;
                 bigIdea = false;
@@ -112,10 +113,22 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 8) == "heading:") {
-                item = $(document.createElement("h3")).append(line.slice(8));
+                llab.increaseNumbering(0, numobj);
+                item = $(document.createElement("h3"));
+                item.append($(document.createElement("span")).attr({'class':'topic_number'}).append(llab.getNumberingString(numobj)));
+                item.append(line.slice(8));
                 topic.append(item);
                 learningGoal = false;
                 bigIdea = false;
+            } else if (line.slice(0,12) == "    heading:") {
+                llab.increaseNumbering(1, numobj);
+                item = $(document.createElement("h4")).attr({'class':'indent1'});
+                item.append($(document.createElement("span")).attr({'class':'topic_number'}).append(llab.getNumberingString(numobj)));
+                item.append(line.slice(12));
+                topic.append(item);
+                learningGoal = false;
+                bigIdea = false;
+                // TODO second level indent?  sigh
             } else if (line[0] == "}") {
                 in_topic = false;
                 learningGoal = false;
@@ -125,31 +138,31 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 if (learningGoal) {
                     list.append($(document.createElement("li")).append(line.slice(14)));
                 } else {
-                    indent = llab.indentString(line);
+                    llab.determineIndent(line, numobj);
                     line = $.trim(line);
                     learningGoal = true;
-                    item = $(document.createElement("div")).attr({'class': 'learninggoals' + indent});
+                    item = $(document.createElement("div")).attr({'class': 'learninggoals ' + numobj.indentCls});
                     list = $(document.createElement("ul"));
                     list.append($(document.createElement("li")).append(line.slice(14)));
                     item.append(list);
                     topic.append(item);
-                };
+                }
             } else if (line.slice(0, 8) == "big-idea") {
                 learningGoal = false;
                 if (bigIdea) {
                     list.append($(document.createElement("li")).append(line.slice(9)));
                 } else {
-                    indent = llab.indentString(line);
+                    llab.determineIndent(line, numobj);
                     line = $.trim(line);
                     bigIdea = true;
-                    item = $(document.createElement("div")).attr({'class': 'bigideas' + indent});
+                    item = $(document.createElement("div")).attr({'class': 'bigideas ' + numobj.indentCls});
                     list = $(document.createElement("ul"));
                     list.append($(document.createElement("li")).append(line.slice(9)));
                     item.append(list);
                     topic.append(item);
-                };
+                }
             } else {
-                indent = llab.indentString(line);
+                llab.determineIndent(line, numobj);
                 line = $.trim(line);
                 learningGoal = false;
                 bigIdea = false;
@@ -157,15 +170,17 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 if (sepIdx != -1 && llab.isTag(line.slice(0, sepIdx))) {
                     item = $(document.createElement(line.slice(0, sepIdx)));
                 } else if (sepIdx != -1) {
-                    item = $(document.createElement("div")).attr({'class': line.split(":")[0] + indent});
+                    item = $(document.createElement("div")).attr({'class': line.split(":")[0] + " " + numobj.indentCls});
                 } else {
                     item = $(document.createElement("div"));
                 }
                 if (line.indexOf("[") != -1) {
+                    llab.increaseNumbering(numobj.currentLevel, numobj);
                     var temp = $(document.createElement("a"));
                     var query = params;
-                    text = line.slice(sepIdx + 1, line.indexOf("["))
-                    temp.append($.trim(text));
+                    text = line.slice(sepIdx + 1, line.indexOf("["));
+                    temp.append($(document.createElement("span")).attr({'class':'topic_number'}).append(llab.getNumberingString(numobj)));
+                    temp.append($(document.createElement("span")).attr({'class':'topic_target'}).append($.trim(text)));
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     if (url.indexOf("http") != -1) {
                         query = $.extend({}, query, { src: url, title: text });
@@ -205,13 +220,16 @@ llab.renderFull = function(data, ignored1, ignored2) {
 
 
 
-/* Returns the indent class of this string,
- * depending on how far it has been indented
- * on the line. */
-llab.indentString = function(s) {
-    var len = s.length;
-    var count = 0;
-    for (var i = 0; i < len; i++) {
+// Determines numbering, and the indent class of this string,
+llab.determineNumbering = function(s, numobj) {
+    llab.determineIndent(s, numobj);
+    llab.increaseNumbering(numobj.currentLevel, numobj);
+};
+
+llab.determineIndent = function(s, numobj) {
+    var count = 0,
+        level;
+    for (var i = 0; i < s.length; i++) {
         if (s[i] == " ") {
             count++;
         } else if (s[i] == "\t") {
@@ -220,9 +238,30 @@ llab.indentString = function(s) {
             break;
         }
     }
-    return " indent" + Math.floor(count/4);
-}
+    level = Math.floor(count/4);
+    numobj.currentLevel = level;
+    numobj.indentCls = "indent" + level;
+};
 
+// increases numobj.in at level by one, zeroing out sublevels
+llab.increaseNumbering =function(level, numobj) {
+    var current;
+    for (var i = 0; i <= level; i++ ) {
+        if (i == level) {
+            current = numobj.n[i];
+            numobj.n[i] = ( current == undefined ? 0 : current + 1 );
+            numobj.n.splice(level+1, numobj.n.length);   // remove any additional levels
+        } else if (numobj.n[i] == undefined) {
+            numobj.n[i] = 0;
+        }
+    }
+
+};
+
+// returns string version of the current numbering
+llab.getNumberingString = function(numobj) {
+    return "(" + numobj.n.join('.') + ")";
+}
 
 /* Returns true iff S is an allowed html tag. */
 llab.isTag = function(s) {

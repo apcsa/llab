@@ -587,6 +587,21 @@ img.indent, div.indent {
 }
 
 
+
+/*  on topic pages, this is the number of the step
+*/
+.topic_number {
+    font-style: italic;
+    padding-right: 7px;
+    font-size: 75%;
+    vertical-align: middle;
+}
+
+.topic_target {
+    vertical-align: middle;
+}
+
+
 /* This is for the curriculum page with links to other topic pages.
 * Do not place inside a topic div. */
 .topic_link {
