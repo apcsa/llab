@@ -23,7 +23,7 @@
 }
 
 /* initial */
-.brainstorm {
+.brainstorm-panel {
 	display: none;
 	border-color: #000000;
 	border-width: thin;
@@ -33,13 +33,13 @@
 }
 
 
-.brainstorm > .settings {
+.brainstorm-panel > .settings {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 }
 
-.brainstorm > .title {
+.brainstorm-panel > .title {
 	display: none;     /* gets set in BRAINSTORM constructor if title is present */
 	border-style: none;
 	border-bottom: thin solid #000000;
@@ -60,13 +60,13 @@
 
 
 
-.brainstorm > .prompt {
+.brainstorm-panel > .prompt {
 	padding: 10px 10px;
 	font-size: .9em;
 	text-align: left;
 }
 
-.brainstorm > .input {
+.brainstorm-panel > .input {
 
 	padding: 10px 10%;
 	/* margin-left: auto;
@@ -75,7 +75,7 @@
 	background-color: #FBF9EE;
 }
 
-.brainstorm  .input > .inputarea {
+.brainstorm-panel  .input > .inputarea {
 	width: 80%;
 	display: block;
 	margin-left: auto;
@@ -83,22 +83,22 @@
 }
 
 
-.brainstorm  .input > input[type=button].disabled {
+.brainstorm-panel  .input > input[type=button].disabled {
 	color: #999;
 }
 
 
 /* both buttons */
-.brainstorm input[type=button] {
+.brainstorm-panel input[type=button] {
 	-moz-border-radius:5px;
     -webkit-border-radius:5px;
     border-radius:5px;
 }
-.brainstorm input[type=button]:hover:not(.disabled) {
+.brainstorm-panel input[type=button]:hover:not(.disabled) {
     background-color: white;
 }
 
-.brainstorm > .responseArea {
+.brainstorm-panel > .responseArea {
 	display: none;
 	position: relative;
 	text-align: left;
@@ -106,14 +106,14 @@
 	padding-top: 5px;
 }
 
-.brainstorm > .responseArea > .responsebutton {
+.brainstorm-panel > .responseArea > .responsebutton {
     position: absolute;
     top: 0px;
     right: 0px;
 }
 
 
-.brainstorm .response {
+.brainstorm-panel .response {
 	padding-left: 35px;
 	padding-top: 9px;
 	padding-bottom: 9px;
@@ -126,36 +126,36 @@
     border-radius:8px;
 }
 
-.brainstorm .responses > .responsePlaceholder {
+.brainstorm-panel .responses > .responsePlaceholder {
 	display: none;
 }
 
-.brainstorm .response.user {
+.brainstorm-panel .response.user {
 	background-color: red;
 }
 
-.brainstorm .response .responseTitle {
+.brainstorm-panel .response .responseTitle {
     color: #000;
     font-weight: bold;
 }
 
-.brainstorm .response .responseTitle span {
+.brainstorm-panel .response .responseTitle span {
 	padding-right: 10px;
 	
 }
 
-.brainstorm .response.user .username {
+.brainstorm-panel .response.user .username {
 	font-style: italic;
 }
 
-.brainstorm .response.user .edit input[type=button] {
+.brainstorm-panel .response.user .edit input[type=button] {
     margin-bottom: 5px
 }
 
 
 
 
-.brainstorm .response > .responseTextArea {
+.brainstorm-panel .response > .responseTextArea {
     padding: 4px 6px;
     font-weight: normal;
     background-color: #FFF;

@@ -60,7 +60,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
         }
         $(FULL).append($(document.createElement("a")).attr(
             {"class":"course_link", "href": course }
-            ).html(llab.strings.goMain));
+            ).html(" "+llab.strings.goMain));
     }
 
     llab.file = llab.topic;

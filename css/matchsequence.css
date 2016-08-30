@@ -23,7 +23,7 @@
     font-weight: bold;
 }
 
-.matchsequence {
+.matchsequence-panel {
 	display: none;
     border-color: #000000;
     border-width: thin;
@@ -33,13 +33,13 @@
 }
 
 /* unused right now */
-.matchsequence > .settings {
+.matchsequence-panel > .settings {
     position: absolute;
     top: 0px;
     right: 0px;
 }
 
-.matchsequence > .title {
+.matchsequence-panel > .title {
     border-style: none;
     border-bottom: thin solid #000000;
     background-color: #b48cb4;
@@ -58,7 +58,7 @@
 }
 
 
-.matchsequence > .prompt {
+.matchsequence-panel > .prompt {
     padding: 10px 10px;
     font-size: .9em;
     text-align: left;

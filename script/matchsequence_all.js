@@ -79,7 +79,7 @@ llab.ms.buildTheDiv = function(msspec, i, msdiv, msdatadiv) {
     var ms = new MS(msspec, i, msdiv);
     llab.ms.nodes[i] = ms;
     $(msdiv).find(".checkAnswerButton").click(function(event) {
-        var i = $(this).parents(".matchsequence").attr("indexOnPage");
+        var i = $(this).parents(".matchsequence-panel").attr("indexOnPage");
         llab.ms.nodes[i].checkAnswer(event);
     });
     ms.render();
@@ -603,7 +603,7 @@ function addOrderToChoice(identifier, orderNumber) {
  */
 MS.prototype.render = function() {
     // render the prompt
-    var promptdiv = $(".matchsequence .prompt").html(this.content.assessmentItem.interaction.prompt)
+    var promptdiv = $(".matchsequence-panel .prompt").html(this.content.assessmentItem.interaction.prompt)
 
     var bucketsHtml = "";
     var choicesBucketHtml = "";

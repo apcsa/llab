@@ -76,7 +76,9 @@ var BRAINSTORM = function(bsdatadiv, i) {
 	this.showtitle = true;
 	this.title = bsdatadiv.find(".title").html();
 	if (this.title === "" || this.title === null) {
-		this.showtitle = false;
+		// NATE: the orange bar looks good even without any text
+		//this.showtitle = false;
+        this.title = "<i>Brainstorm</i>"
 	}
 	if (this.showtitle) {
 		bsdiv.find(".title").html(this.title).css('display', 'block');
@@ -178,7 +180,7 @@ BRAINSTORM.prototype.show = function() {
 // TODO arg!  move to jsrender, yo
 llab.bs.getContentTemplate = function(indexOnPage) {
 	// template needs to start with '<' !! no spaces, sigh
-	var template = '<div class="brainstorm" indexOnPage="' + indexOnPage + '">'
+	var template = '<div class="brainstorm-panel" indexOnPage="' + indexOnPage + '">'
 			+ '   <div class="settings">'
 			+ '      <img src="' + llab.llab_path + 'img/brainstorm-gear.png" alt="Settings" />'
 			+ '   </div>'
@@ -250,8 +252,8 @@ llab.bs.saveResponse = function(bsdiv) {
 		bsnode.userResponse['index'] = "user";    //not necessary
 
 		llab.bs.syncResponsesView(bsdiv, bsnode);
-		$(".brainstorm .input").hide(125);
-		$(".brainstorm .responseArea").show(125);
+		$(".brainstorm-panel .input").hide(125);
+		$(".brainstorm-panel .responseArea").show(125);
 	}
 }
 
@@ -337,7 +339,7 @@ llab.bs.getResponseTemplate = function(resp, userClass) {
 			+ '';
 	template = $(template);
 	template.find("input[type=button]").click(function() {
-		llab.bs.editResponse($(this).parents(".brainstorm"));
+		llab.bs.editResponse($(this).parents(".brainstorm-panel"));
 	});
 	return template;
 }
